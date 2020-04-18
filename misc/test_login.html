@@ -36,12 +36,13 @@
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         console.log('logged in', user)
-        firebase.auth().currentUser.getIdToken(true).then(async (idToken) => {
+        user.getIdToken(true).then(async (idToken) => {
           // el "true" de getIdToken() hace un refresh token si es necesario
           // Aca esta el token para mandar en el header en todas las API requests
-            
+          console.log('JWT token: ', idToken)
+          
           // Ejemplo corriendo django runserver
-          const result = await fetch('http://localhost:8000/api/users/', {
+          const result = await fetch('http://back.34.201.137.122.xip.io/api/users/', {
             headers: {
               'Authorization': `jwt ${idToken}`
             }
