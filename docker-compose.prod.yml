@@ -13,7 +13,7 @@ services:
       DJANGO_SETTINGS_MODULE: "mvp.settings.prod"
       VIRTUAL_PORT: "8000"
       VIRTUAL_HOST: "back.34.201.137.122.xip.io"
-      LETSENCRYPT_HOST: "back.34.201.137.122.xip.io"
+      #LETSENCRYPT_HOST: "back.34.201.137.122.xip.io"
     ports:
       - "8000:8000"
     depends_on: 
@@ -24,3 +24,8 @@ services:
 
 volumes:
   argentinahackea_pgdata:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
