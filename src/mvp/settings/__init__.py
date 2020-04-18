@@ -131,3 +131,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_firebase.authentication.FirebaseAuthentication',
+    )
+}
+
+# Firebase
+FIREBASE_AUTH = {
+    'FIREBASE_ACCOUNT_KEY_FILE': os.path.join(BASE_DIR, 'google-credentials.json'),
+}
