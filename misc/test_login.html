@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test login</title>
+</head>
+<body>
+  <a href="#" onclick="login()">Login</a> | 
+  <a href="#" onclick="logout()">Logout</a>
+  <p>
+    Ver consola!
+  </p> 
+  
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAhmvXuOr8NBFv4LuPhJ3ZpHKOTYUT1xzg",
+      authDomain: "tests-a725f.firebaseapp.com",
+      databaseURL: "https://tests-a725f.firebaseio.com",
+      projectId: "tests-a725f",
+      storageBucket: "tests-a725f.appspot.com",
+      messagingSenderId: "413417499767",
+      appId: "1:413417499767:web:06e0c87e9a458471f26a72"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log('logged in', user)
+        firebase.auth().currentUser.getIdToken(true).then(async (idToken) => {
+          // el "true" de getIdToken() hace un refresh token si es necesario
+          // Aca esta el token para mandar en el header en todas las API requests
+            
+          // Ejemplo corriendo django runserver
+          const result = await fetch('http://localhost:8000/api/users/', {
+            headers: {
+              'Authorization': `jwt ${idToken}`
+            }
+          })
+          console.log(result)
+          
+        }).catch(function(error) {
+          console.error(error)
+        });
+      } else {
+        console.log('logged out')
+      }
+    })
+    
+    function login() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        console.log(result.user)
+      }).catch(function(error) {
+        console.error(error)
+      })
+    }
+
+    function logout() {
+      firebase.auth().signOut()
+    }
+  </script>
+</body>
+</html>

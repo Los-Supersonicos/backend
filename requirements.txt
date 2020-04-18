@@ -3,3 +3,4 @@ djangorestframework
 djangorestframework-gis
 djangorestframework-firebase
 psycopg2-binary
+django-cors-headers
