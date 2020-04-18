@@ -21,6 +21,7 @@ services:
     volumes:
       - ./src:/app
     tty: true
+    command: gunicorn -b 0.0.0.0:8000 mvp.wsgi --reload
 
 volumes:
   argentinahackea_pgdata:
