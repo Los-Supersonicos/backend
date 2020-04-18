@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    image: mdillon/postgis
+    volumes:
+      - argentinahackea_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  argentinahackea_pgdata:

@@ -1,3 +1,5 @@
 django
 djangorestframework
 djangorestframework-gis
+djangorestframework-firebase
+psycopg2-binary
