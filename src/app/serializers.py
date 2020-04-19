@@ -7,9 +7,15 @@ from app.models import (
 
 
 class UserSerializer(serializers.ModelSerializer):
+    handle = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['email', 'username']
+        fields = ('handle', 'username')
+
+    def get_handle(self, instance):
+        if instance and instance.email:
+            return instance.email.split('@')[0]
 
 
 class PublicationSerializer(GeoFeatureModelSerializer):
