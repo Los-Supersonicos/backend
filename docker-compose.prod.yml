@@ -5,13 +5,12 @@ services:
     image: mdillon/postgis
     volumes:
       - argentinahackea_pgdata:/var/lib/postgresql/data
-
   app:
     build: 
       context: ./src
     environment: 
       DJANGO_SETTINGS_MODULE: "mvp.settings.prod"
-      VIRTUAL_PORT: "8000"
+      VIRTUAL_PORT: 8000
       VIRTUAL_HOST: "back.52.91.66.153.xip.io,api.entretodos.com.ar"
       LETSENCRYPT_HOST: "api.entretodos.com.ar"
     ports:
