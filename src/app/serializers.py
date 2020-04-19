@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PublicationSerializer(GeoFeatureModelSerializer):
     """A publication serializer."""
-    user = serializers.HyperlinkedRelatedField('user-detail', read_only=True)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Publication

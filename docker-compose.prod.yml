@@ -3,8 +3,10 @@ version: '3'
 services:
   db:
     image: mdillon/postgis
+    restart: unless-stopped
     volumes:
       - argentinahackea_pgdata:/var/lib/postgresql/data
+
   app:
     build: 
       context: ./src
@@ -20,6 +22,7 @@ services:
     volumes:
       - ./src:/app
     tty: true
+    restart: unless-stopped
     command: gunicorn -b 0.0.0.0:8000 mvp.wsgi --reload
 
 volumes:
