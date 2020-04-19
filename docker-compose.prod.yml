@@ -12,8 +12,8 @@ services:
     environment: 
       DJANGO_SETTINGS_MODULE: "mvp.settings.prod"
       VIRTUAL_PORT: "8000"
-      VIRTUAL_HOST: "back.34.201.137.122.xip.io"
-      #LETSENCRYPT_HOST: "back.34.201.137.122.xip.io"
+      VIRTUAL_HOST: "back.52.91.66.153.xip.io"
+      LETSENCRYPT_HOST: "back.52.91.66.153.xip.io"
     ports:
       - "8000:8000"
     depends_on: 
