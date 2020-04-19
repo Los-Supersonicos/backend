@@ -14,7 +14,7 @@ class PublicationViewSet(viewsets.ModelViewSet):
 
     queryset = Publication.objects.all()
     serializer_class = PublicationSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         """
@@ -37,13 +37,15 @@ class PublicationViewSet(viewsets.ModelViewSet):
                 queryset = Publication.objects.filter(location__distance_lte=(point, D(meter=distance)))
 
         return queryset
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
 
     queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
